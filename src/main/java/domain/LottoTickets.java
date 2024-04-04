@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LottoTickets {
+
+    private static final int LOTTO_PRICE = 1000;
     private final List<LottoTicket> lottoTickets;
 
     public LottoTickets(List<LottoTicket> lottoTickets) {
@@ -18,8 +20,8 @@ public class LottoTickets {
                         winningLotto::calculatePrize, lottoTicket -> 1, Integer::sum));
     }
 
-    public Integer getSize() {
-        return lottoTickets.size();
+    public Integer purchaseAmount() {
+        return lottoTickets.size() * LOTTO_PRICE;
     }
 
     public List<LottoTicket> getLottoTicketList() {

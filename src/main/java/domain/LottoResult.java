@@ -7,8 +7,8 @@ public class LottoResult {
 
     private final Map<LottoPrice, Integer> lottoResult;
 
-    public LottoResult(WinningLotto winningLotto, LottoTickets lottoTickets) {
-        this.lottoResult = lottoTickets.calculateRank(winningLotto);
+    public LottoResult(Map<LottoPrice, Integer> lottoResult) {
+        this.lottoResult = lottoResult;
     }
 
     public float calculateRevenue() {
