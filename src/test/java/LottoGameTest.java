@@ -1,11 +1,7 @@
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
 
-import domain.LottoGame;
-import domain.LottoNumber;
-import domain.LottoPrice;
-import domain.LottoTicket;
-import domain.WinningLotto;
+import domain.*;
 
 import java.util.List;
 import java.util.Map;
@@ -27,10 +23,11 @@ class LottoGameTest {
 
     @Test
     void 로또번호_당첨_개수() {
-        List<LottoTicket> lottoTickets = List.of(
+        LottoTickets lottoTickets = new LottoTickets(List.of(
                 new LottoTicket(changeToLottoNumberList(List.of(11, 12, 13, 14, 15, 16))),
                 new LottoTicket(changeToLottoNumberList(List.of(1, 2, 3, 4, 7, 8)))
-        );
+        ));
+
 
         LottoGame lottoGame = new LottoGame(winningLotto, lottoTickets);
         Map<LottoPrice, Integer> result = lottoGame.getRank();
@@ -41,10 +38,10 @@ class LottoGameTest {
 
     @Test
     void 로또번호_수익률() {
-        List<LottoTicket> lottoTickets = List.of(
+        LottoTickets lottoTickets = new LottoTickets(List.of(
                 new LottoTicket(changeToLottoNumberList(List.of(11, 12, 13, 14, 15, 16))),
                 new LottoTicket(changeToLottoNumberList(List.of(1, 2, 3, 7, 8, 9)))
-        );
+        ));
 
         LottoGame lottoGame = new LottoGame(winningLotto, lottoTickets);
         float result = lottoGame.calculateRevenue();

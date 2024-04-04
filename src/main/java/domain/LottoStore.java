@@ -18,9 +18,9 @@ public class LottoStore {
         return lottoCount;
     }
 
-    public List<LottoTicket> getLottoTickets(NumberGenerator numberGenerator) {
-        return IntStream.range(0, lottoCount)
-            .mapToObj(number -> new LottoTicket(numberGenerator.generateNumbers()))
-            .collect(Collectors.toList());
+    public LottoTickets getLottoTickets(NumberGenerator numberGenerator) {
+        return new LottoTickets(IntStream.range(0, lottoCount)
+                .mapToObj(number -> new LottoTicket(numberGenerator.generateNumbers()))
+                .collect(Collectors.toList()));
     }
 }

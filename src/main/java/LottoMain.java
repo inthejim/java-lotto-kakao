@@ -1,9 +1,8 @@
-import domain.LottoGame;
-import domain.LottoStore;
-import domain.LottoTicket;
-import domain.WinningLotto;
+import domain.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
+
 import view.InputView;
 import view.OutputView;
 
@@ -13,12 +12,8 @@ public class LottoMain {
     private static final OutputView outputView = new OutputView();
 
     public static void main(String[] args) {
-        List<LottoTicket> lottoTickets = buyLottos();
-        outputView.printUserLottos(
-            lottoTickets.stream()
-                .map(LottoTicket::getLottoNumbers)
-                .collect(Collectors.toList())
-        );
+        LottoTickets lottoTickets = buyLottos();
+        outputView.printUserLottos(extractLottoNumbersPerTicket(lottoTickets));
 
         outputView.printWinningNumbersGuide();
         String winningNumbers = inputView.inputString();
@@ -29,7 +24,14 @@ public class LottoMain {
         noticeResult(winningLotto, lottoTickets);
     }
 
-    private static List<LottoTicket> buyLottos() {
+    private static List<List<Integer>> extractLottoNumbersPerTicket(LottoTickets lottoTickets) {
+        return lottoTickets.getLottoTicketList()
+                .stream()
+                .map(LottoTicket::getLottoNumbers)
+                .collect(Collectors.toList());
+    }
+
+    private static LottoTickets buyLottos() {
         outputView.printGameGuide();
         int money = inputView.inputInt();
         inputView.inputString();
@@ -40,7 +42,7 @@ public class LottoMain {
         return lottoStore.getLottoTickets(new LottoNumberGenerator());
     }
 
-    private static void noticeResult(WinningLotto winningLotto, List<LottoTicket> lottoTickets) {
+    private static void noticeResult(WinningLotto winningLotto, LottoTickets lottoTickets) {
         LottoGame lottoGame = new LottoGame(winningLotto, lottoTickets);
         outputView.printStatistics(lottoGame.getRank());
         outputView.printRevenue(lottoGame.calculateRevenue());

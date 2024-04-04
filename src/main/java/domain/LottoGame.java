@@ -9,18 +9,12 @@ public class LottoGame {
 
     private static final int LOTTO_PRICE = 1000;
 
-    private final List<LottoTicket> lottoTickets;
+    private final LottoTickets lottoTickets;
     private final Map<LottoPrice, Integer> lottoResult;
 
-    public LottoGame(WinningLotto winningLotto, List<LottoTicket> lottoTickets) {
+    public LottoGame(WinningLotto winningLotto, LottoTickets lottoTickets) {
         this.lottoTickets = lottoTickets;
-        this.lottoResult = calculateRank(winningLotto);
-    }
-
-    private Map<LottoPrice, Integer> calculateRank(WinningLotto winningLotto) {
-        return lottoTickets.stream()
-            .collect(Collectors.toMap(
-                winningLotto::calculatePrize, lottoTicket -> 1, Integer::sum));
+        this.lottoResult = lottoTickets.calculateRank(winningLotto);
     }
 
     public Map<LottoPrice, Integer> getRank() {
@@ -29,10 +23,10 @@ public class LottoGame {
 
     public float calculateRevenue() {
         int revenue = lottoResult.entrySet()
-            .stream()
-            .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
-            .sum();
+                .stream()
+                .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
+                .sum();
 
-        return (float) revenue / (LOTTO_PRICE * lottoTickets.size());
+        return (float) revenue / (LOTTO_PRICE * lottoTickets.getSize());
     }
 }

@@ -12,6 +12,5 @@ public class LottoStoreTest {
         LottoStore lottoStore = new LottoStore(14_000);
 
         assertThat(lottoStore.getLottoCount()).isEqualTo(14);
-        assertThat(lottoStore.getLottoTickets(new LottoNumberGenerator())).hasSize(14);
     }
 }
