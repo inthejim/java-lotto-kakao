@@ -45,6 +45,6 @@ public class LottoMain {
     private static void noticeResult(WinningLotto winningLotto, LottoTickets lottoTickets) {
         LottoGame lottoGame = new LottoGame(winningLotto, lottoTickets);
         outputView.printStatistics(lottoGame.getRank());
-        outputView.printRevenue(lottoGame.calculateRevenue());
+        outputView.printRevenue(lottoGame.calculateRevenuePercent());
     }
 }

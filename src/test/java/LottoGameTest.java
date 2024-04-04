@@ -44,7 +44,7 @@ class LottoGameTest {
         ));
 
         LottoGame lottoGame = new LottoGame(winningLotto, lottoTickets);
-        float result = lottoGame.calculateRevenue();
+        float result = lottoGame.calculateRevenuePercent();
 
         assertThat(result).isCloseTo(2.5f, within(0.5f));
     }
