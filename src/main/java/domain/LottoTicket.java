@@ -11,23 +11,21 @@ public class LottoTicket {
 
     private final List<LottoNumber> lottoNumbers;
 
-    public LottoTicket(List<Integer> numbers) {
+    public LottoTicket(List<LottoNumber> numbers) {
         validateNotDuplicated(numbers);
         validateSize(numbers);
 
-        this.lottoNumbers = numbers.stream()
-            .map(LottoNumber::new)
-            .collect(Collectors.toList());
+        this.lottoNumbers = numbers;
     }
 
-    private void validateSize(List<Integer> numbers) {
+    private void validateSize(List<LottoNumber> numbers) {
         if (numbers.size() != TICKET_SIZE) {
             throw new IllegalArgumentException("로또 번호는 6개이어야 합니다.");
         }
     }
 
-    private void validateNotDuplicated(List<Integer> numbers) {
-        Set<Integer> distinctNumbers = new HashSet<>(numbers);
+    private void validateNotDuplicated(List<LottoNumber> numbers) {
+        Set<LottoNumber> distinctNumbers = new HashSet<>(numbers);
 
         if (numbers.size() != distinctNumbers.size()) {
             throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
@@ -40,13 +38,13 @@ public class LottoTicket {
 
     public long matchCount(LottoTicket other) {
         return lottoNumbers.stream()
-            .filter(other.lottoNumbers::contains)
-            .count();
+                .filter(other.lottoNumbers::contains)
+                .count();
     }
 
     public List<Integer> getLottoNumbers() {
         return lottoNumbers.stream()
-            .map(LottoNumber::getValue)
-            .collect(Collectors.toList());
+                .map(LottoNumber::getValue)
+                .collect(Collectors.toList());
     }
 }

@@ -1,4 +1,6 @@
+import domain.LottoNumber;
 import domain.NumberGenerator;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,15 +11,15 @@ public class LottoNumberGenerator implements NumberGenerator {
     private static final int MIN_VALUE = 1;
     private static final int MAX_VALUE = 45;
     private static final int NUMBER_SIZE = 6;
-
-    @Override
-    public List<Integer> generateNumbers() {
-        List<Integer> numbers = IntStream.rangeClosed(MIN_VALUE, MAX_VALUE)
+    private static final List<Integer> NUMBERS_LIST = IntStream.rangeClosed(MIN_VALUE, MAX_VALUE)
             .boxed()
             .collect(Collectors.toList());
 
-        Collections.shuffle(numbers);
+    @Override
+    public List<LottoNumber> generateNumbers() {
 
-        return numbers.subList(0, NUMBER_SIZE);
+        Collections.shuffle(NUMBERS_LIST);
+
+        return NUMBERS_LIST.subList(0, NUMBER_SIZE).stream().map(LottoNumber::new).collect(Collectors.toList());
     }
 }

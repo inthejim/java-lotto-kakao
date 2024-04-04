@@ -18,6 +18,7 @@ public class WinningLotto {
     public WinningLotto(String winningNumbers, int bonusBall) {
         this(new LottoTicket(Arrays.stream(winningNumbers.split(", "))
                 .map(Integer::parseInt)
+                .map(LottoNumber::new)
                 .collect(Collectors.toList())), new LottoNumber(bonusBall));
     }
 
@@ -32,8 +33,8 @@ public class WinningLotto {
         boolean isBonusMatch = lottoTicket.contains(bonusNumber);
 
         return Arrays.stream(LottoPrice.values())
-            .filter(lottoPrice -> lottoPrice.matchPrice(matchCount, isBonusMatch))
-            .findAny()
-            .orElse(LottoPrice.NOTHING);
+                .filter(lottoPrice -> lottoPrice.matchPrice(matchCount, isBonusMatch))
+                .findAny()
+                .orElse(LottoPrice.NOTHING);
     }
 }

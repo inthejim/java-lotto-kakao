@@ -6,23 +6,30 @@ import domain.LottoNumber;
 import domain.LottoPrice;
 import domain.LottoTicket;
 import domain.WinningLotto;
+
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("LottoGame 단위 테스트")
 class LottoGameTest {
 
-    private final LottoTicket winningLottoTicket = new LottoTicket(List.of(1, 2, 3, 4, 5, 6));
+    private final LottoTicket winningLottoTicket = new LottoTicket(changeToLottoNumberList(List.of(1, 2, 3, 4, 5, 6)));
     private final LottoNumber bonusNumber = new LottoNumber(7);
     private final WinningLotto winningLotto = new WinningLotto(winningLottoTicket, bonusNumber);
+
+    private static List<LottoNumber> changeToLottoNumberList(List<Integer> integerList) {
+        return integerList.stream().map(LottoNumber::new).collect(Collectors.toList());
+    }
 
     @Test
     void 로또번호_당첨_개수() {
         List<LottoTicket> lottoTickets = List.of(
-            new LottoTicket(List.of(11, 12, 13, 14, 15, 16)),
-            new LottoTicket(List.of(1, 2, 3, 4, 7, 8))
+                new LottoTicket(changeToLottoNumberList(List.of(11, 12, 13, 14, 15, 16))),
+                new LottoTicket(changeToLottoNumberList(List.of(1, 2, 3, 4, 7, 8)))
         );
 
         LottoGame lottoGame = new LottoGame(winningLotto, lottoTickets);
@@ -35,8 +42,8 @@ class LottoGameTest {
     @Test
     void 로또번호_수익률() {
         List<LottoTicket> lottoTickets = List.of(
-            new LottoTicket(List.of(11, 12, 13, 14, 15, 16)),
-            new LottoTicket(List.of(1, 2, 3, 7, 8, 9))
+                new LottoTicket(changeToLottoNumberList(List.of(11, 12, 13, 14, 15, 16))),
+                new LottoTicket(changeToLottoNumberList(List.of(1, 2, 3, 7, 8, 9)))
         );
 
         LottoGame lottoGame = new LottoGame(winningLotto, lottoTickets);
