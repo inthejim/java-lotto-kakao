@@ -38,7 +38,7 @@ public class LottoTicket {
         return lottoNumbers.contains(number);
     }
 
-    public long compare(LottoTicket other) {
+    public long matchCount(LottoTicket other) {
         return lottoNumbers.stream()
             .filter(other.lottoNumbers::contains)
             .count();
