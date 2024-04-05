@@ -32,9 +32,6 @@ public class WinningLotto {
         long matchCount = winningLottoTicket.matchCount(lottoTicket);
         boolean isBonusMatch = lottoTicket.contains(bonusNumber);
 
-        return Arrays.stream(LottoPrice.values())
-                .filter(lottoPrice -> lottoPrice.matchPrice(matchCount, isBonusMatch))
-                .findAny()
-                .orElse(LottoPrice.NOTHING);
+        return LottoPrice.matchRank(matchCount, isBonusMatch);
     }
 }
