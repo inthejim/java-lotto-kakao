@@ -39,7 +39,7 @@ public class LottoMain {
         LottoStore lottoStore = new LottoStore(money);
         outputView.printLottoCount(lottoStore.getLottoCount());
 
-        return lottoStore.getLottoTickets(new LottoNumberGenerator());
+        return lottoStore.buyLottoTickets(new LottoNumberGenerator());
     }
 
     private static void noticeResult(WinningLotto winningLotto, LottoTickets lottoTickets) {
