@@ -23,7 +23,7 @@ public class OutputView {
     }
 
     public void printLottoCount(int manualCount, int randomCount) {
-        System.out.println("수동으로 " + manualCount + "장, 자동으로 " + randomCount + "11개를 구매했습니다.");
+        System.out.println("수동으로 " + manualCount + "장, 자동으로 " + randomCount + "개를 구매했습니다.");
     }
 
     public void printUserLottos(List<List<Integer>> userLottos) {
