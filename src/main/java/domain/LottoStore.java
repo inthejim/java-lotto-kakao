@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -17,9 +18,24 @@ public class LottoStore {
         return lottoCount;
     }
 
-    public LottoTickets buyLottoTickets(NumberGenerator numberGenerator) {
-        return new LottoTickets(IntStream.range(0, lottoCount)
+    public LottoTickets buyRandomLottoTickets(NumberGenerator numberGenerator, int manulCount) {
+        return new LottoTickets(IntStream.range(0, lottoCount - manulCount)
                 .mapToObj(number -> new LottoTicket(numberGenerator.generateNumbers()))
                 .collect(Collectors.toList()));
+    }
+
+    public LottoTickets buyManualLottoTickets(List<String> userInput) {
+        UserManualLottos manualLottos = new UserManualLottos();
+
+        userInput.stream().forEach(manualLotto ->
+                manualLottos.addManualLotto(manualLotto));
+
+        return manualLottos.getManualLottos();
+    }
+
+    public LottoTickets buyLottoTickets(NumberGenerator numberGenerator, List<String> userInput) {
+        LottoTickets lottoTickets = buyManualLottoTickets(userInput);
+
+        return lottoTickets.joinTickets(buyRandomLottoTickets(numberGenerator, userInput.size()));
     }
 }

@@ -1,6 +1,7 @@
 package view;
 
 import domain.LottoPrice;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -13,8 +14,16 @@ public class OutputView {
         System.out.println("구입금액을 입력해 주세요.");
     }
 
-    public void printLottoCount(int count) {
-        System.out.println(count + "개를 구매했습니다.");
+    public void printManualCountGuide() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+    }
+
+    public void printManualLottoGuide() {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+    }
+
+    public void printLottoCount(int manualCount, int randomCount) {
+        System.out.println("수동으로 " + manualCount + "장, 자동으로 " + randomCount + "11개를 구매했습니다.");
     }
 
     public void printUserLottos(List<List<Integer>> userLottos) {
@@ -24,8 +33,8 @@ public class OutputView {
 
     private void printLottoNumbers(List<Integer> lottoNumbers) {
         String lottoNumberString = lottoNumbers.stream()
-            .map(String::valueOf)
-            .collect(Collectors.joining(", "));
+                .map(String::valueOf)
+                .collect(Collectors.joining(", "));
 
         System.out.println("[" + lottoNumberString + "]");
     }
@@ -43,9 +52,9 @@ public class OutputView {
         System.out.println("---------");
 
         Arrays.stream(LottoPrice.values())
-            .filter(lottoPrice -> lottoPrice.isGreaterThan(0))
-            .sorted(Comparator.comparingInt(LottoPrice::getPrice))
-            .forEach(lottoPrice -> printStatic(lottoPriceCount, lottoPrice));
+                .filter(lottoPrice -> lottoPrice.isGreaterThan(0))
+                .sorted(Comparator.comparingInt(LottoPrice::getPrice))
+                .forEach(lottoPrice -> printStatic(lottoPriceCount, lottoPrice));
     }
 
     private void printStatic(Map<LottoPrice, Integer> lottoPriceCount, LottoPrice lottoPrice) {
@@ -56,7 +65,7 @@ public class OutputView {
         }
 
         sb.append("(").append(lottoPrice.getPrice()).append("원) - ")
-            .append(lottoPriceCount.getOrDefault(lottoPrice, 0)).append("개");
+                .append(lottoPriceCount.getOrDefault(lottoPrice, 0)).append("개");
 
         System.out.println(sb);
     }

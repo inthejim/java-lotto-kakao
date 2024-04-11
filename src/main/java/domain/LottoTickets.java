@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LottoTickets {
 
@@ -28,5 +29,9 @@ public class LottoTickets {
         return Collections.unmodifiableList(lottoTickets);
     }
 
-
+    public LottoTickets joinTickets(LottoTickets other) {
+        return new LottoTickets(Stream.of(lottoTickets, other.lottoTickets)
+                .flatMap(x -> x.stream())
+                .collect(Collectors.toList()));
+    }
 }
