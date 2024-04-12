@@ -40,7 +40,7 @@ public class LottoMain {
         LottoStore lottoStore = new LottoStore(money);
 
         int manualCount = getManualCount(lottoStore);
-        List<String> manualList = getManualLottos(lottoStore, manualCount);
+        List<String> manualList = getManualLottos(manualCount);
 
         outputView.printLottoCount(manualCount, lottoStore.getLottoCount() - manualCount);
 
@@ -52,13 +52,11 @@ public class LottoMain {
         int manualCount = inputView.inputInt();
         inputView.inputString();
 
-        UserManualLottos.validateManualCount(lottoStore.getLottoCount(), manualCount);
+        lottoStore.validateManualCount(manualCount);
         return manualCount;
     }
 
-    private static List<String> getManualLottos(LottoStore lottoStore, int manualCount) {
-        UserManualLottos.validateManualCount(lottoStore.getLottoCount(), manualCount);
-
+    private static List<String> getManualLottos(int manualCount) {
         outputView.printManualLottoGuide();
 
         ArrayList<String> lottoTickets = new ArrayList<>();

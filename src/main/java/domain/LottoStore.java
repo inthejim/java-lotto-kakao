@@ -18,19 +18,28 @@ public class LottoStore {
         return lottoCount;
     }
 
-    public LottoTickets buyRandomLottoTickets(NumberGenerator numberGenerator, int manulCount) {
+    public void validateManualCount(int manualCount) {
+        if (manualCount > lottoCount) {
+            throw new IllegalArgumentException("구입할 수 있는 로또의 매수를 초과하였습니다.");
+        }
+        if (manualCount < 0) {
+            throw new IllegalArgumentException("양수를 입력해주세요.");
+        }
+    }
+
+    private LottoTickets buyRandomLottoTickets(NumberGenerator numberGenerator, int manulCount) {
         return new LottoTickets(IntStream.range(0, lottoCount - manulCount)
                 .mapToObj(number -> new LottoTicket(numberGenerator.generateNumbers()))
                 .collect(Collectors.toList()));
     }
 
-    public LottoTickets buyManualLottoTickets(List<String> userInput) {
-        UserManualLottos manualLottos = new UserManualLottos();
+    private LottoTickets buyManualLottoTickets(List<String> userInput) {
+        LottoTickets manualLottos = new LottoTickets();
 
         userInput.stream().forEach(manualLotto ->
-                manualLottos.addManualLotto(manualLotto));
+                manualLottos.addTicket(new LottoTicket(manualLotto)));
 
-        return manualLottos.getManualLottos();
+        return manualLottos;
     }
 
     public LottoTickets buyLottoTickets(NumberGenerator numberGenerator, List<String> userInput) {
