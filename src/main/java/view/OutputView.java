@@ -2,6 +2,7 @@ package view;
 
 import domain.LottoPrice;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class OutputView {
+
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
 
     public void printGameGuide() {
         System.out.println("구입금액을 입력해 주세요.");
@@ -71,6 +74,6 @@ public class OutputView {
     }
 
     public void printRevenue(float revenue) {
-        System.out.println("총 수익률은 " + revenue + "입니다.");
+        System.out.println("총 수익률은 " + DECIMAL_FORMAT.format(revenue) + "입니다.");
     }
 }
