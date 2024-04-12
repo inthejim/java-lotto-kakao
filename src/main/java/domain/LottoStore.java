@@ -20,7 +20,7 @@ public class LottoStore {
 
     public void validateManualCount(int manualCount) {
         if (manualCount > lottoCount) {
-            throw new IllegalArgumentException("구입할 수 있는 로또의 매수를 초과하였습니다.");
+            throw new IllegalArgumentException("금액으로 구입할 수 있는 로또의 매수를 초과하였습니다.");
         }
         if (manualCount < 0) {
             throw new IllegalArgumentException("양수를 입력해주세요.");
